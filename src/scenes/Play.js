@@ -7,8 +7,8 @@ class Play extends Phaser.Scene {
         this.load.image('rocket', './assets/rocket.png');
         this.load.image('spaceship', './assets/spaceship.png');
         this.load.image('starfield', './assets/starfield.png');
-        this.load.image('starfield02', './assets/starfield.png'); // new background 
-        this.load.image('starfield03', './assets/starfield.png'); // new background
+        this.load.image('starfield02', './assets/starfield02.png'); // new background 
+        this.load.image('starfield03', './assets/starfield03.png'); // new background
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
     }
@@ -70,6 +70,7 @@ class Play extends Phaser.Scene {
             this.gameOver = true;
         }, null, this);
     }
+
     update() {
         //check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
@@ -84,6 +85,8 @@ class Play extends Phaser.Scene {
             this.ship02.update();
             this.ship03.update();
             this.starfield.tilePositionX -= 4;
+            this.starfield02.tilePositionX -= 2;
+            this.starfield03.tilePositionX -= 1;
             this.p1Rocket.update();
         }
         // check collisions
@@ -100,6 +103,7 @@ class Play extends Phaser.Scene {
             this.shipExplode(this.ship01);
         }
     }
+
     checkCollision(rocket, ship) {
         // simple AABB checking
         if (rocket.x < ship.x + ship.width && 
@@ -111,6 +115,7 @@ class Play extends Phaser.Scene {
             return false;
         }
     }
+
     shipExplode(ship) {
         // temporarily hide ship
         ship.alpha = 0;
